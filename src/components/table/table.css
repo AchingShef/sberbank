@@ -17,8 +17,8 @@
   .main td {
     text-align: left;
     padding-right: 10px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 4px;
+    padding-bottom: 4px;
   }
 
   .main tr:first-child td {
