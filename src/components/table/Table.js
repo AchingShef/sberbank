@@ -5,15 +5,15 @@ import Row from './components/row/row';
 class Table extends Component {
     constructor(props) {
         super(props);
-
-        const HEADERS = this.props.data.axis.r.map((object, i) => {
-            return {
-                name: object.sAxisName,
-                id: object.nAxisID,
-                asceding: null,
-                key: `axis.r.${i}.sName_RU`
-            };
-        });
+        const NUMBERS = this.props.data.r.map((obj) => obj.fDeltaPlan),
+            HEADERS = this.props.data.axis.r.map((object, i) => {
+                return {
+                    name: object.sAxisName,
+                    id: object.nAxisID,
+                    asceding: null,
+                    key: `axis.r.${i}.sName_RU`
+                };
+            });
 
         HEADERS.push({
             name: 'Отклонение от плана',
@@ -25,11 +25,21 @@ class Table extends Component {
         this.state = {
             data: this.props.data.r,
             copy: this.props.data.r,
-            headers: HEADERS
+            headers: HEADERS,
+            max: Math.max.apply(null, NUMBERS.map(Math.abs))
         };
     }
-    sortByDeviation(column, i) {
-        const PATH = column.key.split("."),
+
+    /**
+     * Сортировка по одному столбцу (по имени атрибута получение пути, затем значения для сравнения)
+     *
+     * @param {*} column
+     * @param {*} i
+     * @memberof Table
+     */
+    sort(column, i) {
+        const HEADERS = this.state.headers.slice(),
+            PATH = column.key.split("."),
             get = (p, o) => p.reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, o);
         let data = this.state.copy.slice(0);
 
@@ -56,31 +66,31 @@ class Table extends Component {
         }
 
         column.asceding = !column.asceding;
-        this.state.headers[i] = column;
+        HEADERS[i] = column;
 
         this.setState({
             data: data,
-            headers: this.state.headers
+            headers: HEADERS
         });
     }
     render() {
-      const HEADERS = this.state.headers;
-
       return (
         <table className="main">
             <tbody>
                 <tr>
-                    {HEADERS.map((column, i) => {
-                        if (i === HEADERS.length - 1) {
-                            return <td onClick={() => this.sortByDeviation(column, i)} key={i} colSpan="3">{column.name}</td>
-                        }
-
-                        return <td onClick={() => this.sortByDeviation(column, i)} key={i}>{column.name}</td>
+                    {this.state.headers.map((column, i) => {
+                        return <td 
+                            onClick={() => this.sort(column, i)} 
+                            key={i} 
+                            {...(i === this.state.headers.length - 1 ? {colSpan: "3"} : {})}
+                        >
+                            {column.name}
+                        </td>
                     })}
                     
                 </tr>
                 {this.state.data.map((object, i) => {
-                    return <Row data={object} key={i}/>
+                    return <Row data={object} max={this.state.max} key={i}/>
                 })}
             </tbody>
         </table>

@@ -1,7 +1,11 @@
 .main {
     border-collapse: collapse;
-    position: relative;
-    margin: 0 auto;
+    position:absolute;
+    top:50%; 
+    height:50%; 
+    width:50%;
+    margin-top:-15%;
+    margin-left: 25%;
 }
 
   .main * {
@@ -13,6 +17,8 @@
   .main td {
     text-align: left;
     padding-right: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
 
   .main tr:first-child td {
@@ -21,10 +27,19 @@
     font-size: 14px;
     border-bottom: 1px solid #2D3A44;
     cursor: pointer;
+    padding-bottom: 10px;
+  }
+
+  .main tr td:first-child {
+    padding-left: 20px;
   }
   
   .main tr:first-child,tr:nth-child(n+2):nth-child(even) {
     background-color: #192229;
+  }
+
+  .main tr:first-child td:last-child {
+    text-align: center;
   }
   
   .main tr:nth-child(n+3):nth-child(odd) {
@@ -32,5 +47,28 @@
   }
 
   .main .led {
-      min-width: 120px;
+      width: 250px;
   }
+
+  .main .progress {
+      background-color: #242E36;
+      height: 12px;
+      width: 90%;
+      margin: 0 auto;
+      border-radius: 5px;
+  }
+
+  .main .progress .bar{
+    height: 100%;
+    border-radius: 5px;
+}
+
+.main .progress .negative{
+    margin-left: auto;
+    background-color: #E24B56;
+}
+
+.main .progress .positive{
+    margin-right: auto;
+    background-color: #39AA6B;
+}
