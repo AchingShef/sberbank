@@ -1,0 +1,36 @@
+.main {
+    border-collapse: collapse;
+    position: relative;
+    margin: 0 auto;
+}
+
+  .main * {
+    font-family: 'Courier New', Courier, monospace;
+    color: #FFFFFF;
+    font-size: 15px;
+  }
+
+  .main td {
+    text-align: left;
+    padding-right: 10px;
+  }
+
+  .main tr:first-child td {
+    color: #778FA4;
+    font-weight: normal;
+    font-size: 14px;
+    border-bottom: 1px solid #2D3A44;
+    cursor: pointer;
+  }
+  
+  .main tr:first-child,tr:nth-child(n+2):nth-child(even) {
+    background-color: #192229;
+  }
+  
+  .main tr:nth-child(n+3):nth-child(odd) {
+    background-color: #1C252D;
+  }
+
+  .main .led {
+      min-width: 120px;
+  }
